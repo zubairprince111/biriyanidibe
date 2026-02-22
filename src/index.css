@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 97%;
+    --foreground: 20 30% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 20 30% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 30% 15%;
+
+    /* Saffron primary */
+    --primary: 35 95% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Green secondary */
+    --secondary: 142 60% 32%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 40 20% 92%;
+    --muted-foreground: 20 15% 45%;
+
+    --accent: 35 85% 90%;
+    --accent-foreground: 35 95% 30%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 35 25% 85%;
+    --input: 35 25% 85%;
+    --ring: 35 95% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --saffron: 35 95% 50%;
+    --saffron-light: 40 100% 90%;
+    --green-masjid: 142 60% 32%;
+    --green-light: 142 40% 90%;
+    --gold: 45 90% 45%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 20 30% 8%;
+    --foreground: 40 20% 92%;
+    --card: 20 25% 12%;
+    --card-foreground: 40 20% 92%;
+    --popover: 20 25% 12%;
+    --popover-foreground: 40 20% 92%;
+    --primary: 35 95% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 142 50% 38%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 20 20% 18%;
+    --muted-foreground: 40 15% 60%;
+    --accent: 35 50% 20%;
+    --accent-foreground: 35 95% 70%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 20 20% 22%;
+    --input: 20 20% 22%;
+    --ring: 35 95% 50%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+  }
+}
+
+/* Leaflet overrides */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}
+
+.leaflet-control-zoom a {
+  background: white !important;
+  color: hsl(35 95% 45%) !important;
+  font-size: 18px !important;
+  border-radius: 8px !important;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  width: 240px !important;
+}
+
+.leaflet-popup-tip {
+  background: white !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(35 95% 70%);
+  border-radius: 4px;
+}
+
+/* Bottom sheet animation */
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Pulse animation for live indicator */
+@keyframes livePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.live-pulse {
+  animation: livePulse 1.5s ease-in-out infinite;
+}
