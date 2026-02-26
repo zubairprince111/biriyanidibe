@@ -1,75 +1,77 @@
-🌙 Biriyani Dibe (বিরিয়ানি দিবে)
-The viral crowdsourced map helping Dhaka find the best Iftar and Sehri spots.
+# 🗺️ Biriyani Map Live
 
-📖 The Story
-What started as a simple weekend hackathon project to solve a personal problem—finding good local food during Ramadan—unexpectedly exploded. Biriyani Dibe went viral, amassing over 5 million views across platforms, 2 million+ hits, and 100,000+ active users in a matter of days.
+A modern, interactive web application to discover, add, and review the best Biriyani spots! Built with a robust technical stack including React, Vite, TypeScript, Tailwind CSS, shadcn-ui, and Supabase.
 
-It was featured on national news, but the massive surge in traffic brought the ultimate developer reality check: our servers caught on fire. We experienced database connection limits maxing out and sophisticated bot attacks (using tools like faker.js) flooding the map with fake pins.
+## ✨ Features
 
-We are officially open-sourcing the frontend so the community can help build the ultimate food map, improve our security, and learn from our scaling challenges together.
+- **Interactive Map:** Browse Biriyani spots visually on an intuitive map interface powered by React Leaflet.
+- **Community-Driven:** Users can seamlessly submit their favorite Biriyani locations.
+- **Spam Protection & Rate Limiting:** Backed by Supabase Edge Functions, the platform enforces strict IP-based submission limits, time-based banning mechanisms, and robust spam filters to maintain high data quality.
+- **Voting & Rating System:** Secure upvote/downvote system for Biriyani spots powered by custom PostgreSQL functions.
+- **Modern UI:** A clean, vibrant, and fully responsive design utilizing Tailwind CSS and accessible shadcn-ui components.
+- **Optimized Performance:** Fast and reliable data caching and fetching with React Query.
 
-💻 Tech Stack (The Journey)
-Current / Previous Stack
-Frontend: React + Vite (Fast, optimized, and lightweight)
+## 🚀 Technologies Used
 
-Backend & Database: Supabase (PostgreSQL)
+### Frontend Core
+- [React 18](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [React Query (TanStack)](https://tanstack.com/query)
 
-Hosting & Edge Network: Migrated from Vercel to Cloudflare Pages (To utilize Cloudflare's heavy DDoS & Bot Fight Mode during the viral surge)
+### UI & Styling
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [React Leaflet](https://react-leaflet.js.org/)
+- [Lucide React](https://lucide.dev/) (Icons)
 
-Map Integration: (Add your specific map provider here, e.g., Mapbox, Google Maps API, or Leaflet)
+### Backend & Database
+- [Supabase](https://supabase.com/) - Backend as a Service
+- **PostgreSQL** - Relational database utilizing advanced Row Level Security (RLS) policies.
+- **Supabase Edge Functions** - Serverless functions used for secure data mutations such as analyzing spam metrics and validating submissions.
 
-The Architecture Pivot
-Initially, the app utilized Supabase's real-time WebSocket listeners. When 100,000+ users hit the app simultaneously, it maxed out concurrent connection limits. We had to quickly pivot to a heavy edge-caching strategy and move to Cloudflare to absorb the malicious traffic.
+## 📦 Getting Started
 
-✨ Features
-Interactive Map: Browse crowdsourced pins for Iftar and Sehri locations across Dhaka.
+### Prerequisites
+- Node.js (v18 or higher recommended)
+- npm or yarn
 
-Add a Spot: Users can drop pins to recommend their favorite local Biriyani, Haleem, or Tehari joints.
+### Installation
 
-Real-Time Discovery: Find hidden gems that aren't listed on standard delivery apps.
+1. **Clone the repository:**
+   ```sh
+   git clone <YOUR_GIT_URL>
+   cd biriyani-map-live
+   ```
 
-🚀 Getting Started
-To get a local copy up and running, follow these simple steps.
+2. **Install dependencies:**
+   ```sh
+   npm install
+   ```
 
-Prerequisites
-Node.js (v18 or higher recommended)
+3. **Environment Setup:**
+   Create a `.env` file at the root of the project and add your Supabase credentials:
+   ```env
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
 
-npm or yarn
+4. **Start the development server:**
+   ```sh
+   npm run dev
+   ```
+   The application will be available at `http://localhost:5173`.
 
-Installation
-Clone the repo:
+## 🛠️ Project Architecture
 
-Bash
-git clone https://github.com/zubairprince111/biriyani-map-live.git
-Navigate to the project directory:
+- **`src/components/`**: Reusable UI elements, including map components, popups, grids, and shadcn pre-built primitives.
+- **`src/pages/`**: Primary application views (e.g., the main full-screen map interface in `Index.tsx`).
+- **`src/hooks/`**: Custom React hooks handling business logic.
+- **`src/lib/`**: Utility functions and the Supabase client initialization.
+- **`supabase/functions/`**: Deno-based Supabase Edge Functions for evaluating submissions and filtering spam securely.
+- **`supabase/migrations/`**: Raw SQL migration files handling table creation, PostgreSQL function definitions, index setups, and strict RLS policies to prevent direct manipulation from clients.
 
-Bash
-cd biriyani-map-live
-Install dependencies:
+## 🔒 Security Details
 
-Bash
-npm install
-Set up your environment variables (Create a .env file in the root):
-
-Code snippet
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-# Add your map API keys here
-Start the development server:
-
-Bash
-npm run dev
-🤝 Contributing & The Challenge
-We are actively looking for the community's help! Since we have open public-write endpoints, we are currently battling automated scripts dropping fake data.
-
-Areas we need help with:
-
-Frontend Anti-Spam: Implementing Cloudflare Turnstile or robust client-side validation.
-
-Data Moderation UI: Building community-driven upvote/downvote systems to hide fake pins.
-
-Performance: Optimizing map rendering for hundreds of markers without lagging mobile devices.
-
-Eid Features: Transitioning the map to show "Open on Eid" spots and dessert locations.
-
-If you have experience with these challenges, we would love your Pull Requests!
+- **Database Protection:** Public write access is entirely disabled. Tables are protected using Row Level Security (RLS) policies, allowing only secure Edge Functions and internal db modifications to alter data state.
+- **Submission Guarding:** To stop abuse, spot creations are routed exclusively through backend Edge Functions where parameters are scrutinized, and temporary IP bans are maintained for repeated violations.
